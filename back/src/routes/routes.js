@@ -2,8 +2,14 @@ const { Router } = require('express');
 const UserController = require('../controllers/UserController');
 const SaldoController = require('../controllers/SaldoController');
 const DespesaController = require('../controllers/DespesaController');
+const AuthController = require('../controllers/AuthController');
 
+const passport = require('passport');
 const router = Router();
+
+// AuthController
+router.post('/login', AuthController.login);
+router.get('/auth/getDetails', passport.authenticate('jwt', { session: false }), AuthController.getDetails);
 
 // UserController
 router.get('/users', UserController.index);

@@ -1,10 +1,25 @@
 const User = require('../models/User');
+const Auth = require('../config/auth');
 
 /** Create new register */
 const create = async (req, res) => {
     console.log("1");
+
+    const generateHash = Auth.generateHash(req.body.senha);
+    const salt = generateHash.salt;
+    const hash = generateHash.hash;
+
+    const newUserData = {
+        nome: req.body.nome,
+        email: req.body.email,
+        salt: salt,
+        hash: hash,
+        telefone: req.body.telefone ? req.body.telefone : null,
+        nascimento: req.body.nascimento ? req.body.nascimento : null,
+    }
+
     try {
-        const user = await User.create(req.body);
+        const user = await User.create(newUserData);
         return res.status(200).json({ message: "Usuário registrado com sucesso!", user: user });
     }
     catch (err) {
