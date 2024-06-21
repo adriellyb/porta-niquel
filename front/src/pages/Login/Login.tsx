@@ -1,9 +1,10 @@
+import LoginForm from "../../components/LoginForm";
 
 function Login() {
 
     return(
         <>
-            <p>Monete</p>
+            <LoginForm />
         </>
     )
 }
