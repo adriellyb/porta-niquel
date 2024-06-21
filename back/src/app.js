@@ -1,5 +1,5 @@
 //require('./config/sequelize');
-//const cors = require('cors');
+const cors = require('cors');
 
 // express
 const express = require('express');
@@ -20,6 +20,8 @@ const passport = require('passport');
 require('./middlewares/passport')(passport);
 app.use(passport.initialize());
 
+// cors
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
