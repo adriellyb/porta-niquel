@@ -3,8 +3,6 @@ const Despesa = require('../models/Despesa');
 /** Create new register */
 const create = async (req, res) => {
     console.log("1");
-
-    req.body.user_id = 1;
     try {
         const despesa = await Despesa.create(req.body);
         return res.status(200).json({ message: "Despesa registrada com sucesso!", despesa: despesa });
@@ -77,10 +75,26 @@ const destroy = async (req, res) => {
     }
 };
 
+/** Pegando o despesas de acordo com o usuário */
+const despesasPorUsuario = async (req, res) => {
+    console.log("6");
+    const { userId } = req.params;
+
+    try {
+        const despesas = await Despesa.findAll({ where: { user_id: userId } })
+        return res.status(200).json({ despesas });
+    }
+    catch (err) {
+        return res.status(500).json(`${err}`);
+    }
+
+}
+
 module.exports = {
     index,
     show,
     create,
     update,
-    destroy
+    destroy,
+    despesasPorUsuario
 };

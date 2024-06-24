@@ -3,8 +3,6 @@ const Saldo = require('../models/Saldo');
 /** Create new register */
 const create = async (req, res) => {
     console.log("1");
-
-    req.body.user_id = 1;
     try {
         const saldo = await Saldo.create(req.body);
         return res.status(200).json({ message: "Saldo registrado com sucesso!", saldo: saldo });
@@ -77,10 +75,26 @@ const destroy = async (req, res) => {
     }
 };
 
+/** Pegando o saldo de acordo com o usuário */
+const saldoPorUsuario = async (req, res) => {
+    console.log("6");
+    const { userId } = req.params;
+
+    try {
+        const saldo = await Saldo.findAll({ where: { user_id: userId } })
+        return res.status(200).json({ saldo });
+    }
+    catch (err) {
+        return res.status(500).json(`${err}`);
+    }
+
+}
+
 module.exports = {
     index,
     show,
     create,
     update,
-    destroy
+    destroy,
+    saldoPorUsuario
 };

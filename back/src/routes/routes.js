@@ -24,6 +24,7 @@ router.get('/saldo/:id', SaldoController.show);
 router.post('/saldo', SaldoController.create);
 router.put('/saldo/:id', SaldoController.update);
 router.delete('/saldo/:id', SaldoController.destroy);
+router.get('/saldo/usuario/:userId', SaldoController.saldoPorUsuario);
 
 // DespesaController
 router.get('/despesas', DespesaController.index);
@@ -31,5 +32,6 @@ router.get('/despesa/:id', DespesaController.show);
 router.post('/despesa', DespesaController.create);
 router.put('/despesa/:id', DespesaController.update);
 router.delete('/despesa/:id', DespesaController.destroy);
+router.get('/despesa/usuario/:userId', DespesaController.despesasPorUsuario);
 
 module.exports = router;
