@@ -1,8 +1,16 @@
 import { useState } from "react";
 import api from "../../services/api";
+import { Button } from 'primereact/button';
+import { InputText } from "primereact/inputtext";
+import { Password } from "primereact/password";
+import { useNavigate } from "react-router-dom";
+import logo from '../../assets/logo.png'
+import { Image } from "primereact/image";
+
 
 export default function LoginForm() {
 
+    const navigate = useNavigate();
     const [data, setData] = useState({
         email: '',
         senha: ''
@@ -28,33 +36,50 @@ export default function LoginForm() {
             .then((res) => {
                 const { token } = res.data
                 localStorage.setItem('token', token);
+                console.log("Login realizado.");
                 
                 setData({
                     email: '',
                     senha: ''
                 });
+                navigate('/dashboard');
             }).catch((err) => {
                 console.error("Ocorreu um erro: " + err);
-                
             });
     }
 
     return (
-        <>
-            <h2>Acesse sua carteira digital</h2>
+        <div className="pl-4">
+            <Image 
+            src={logo}
+            alt="porta niquel logotipo"
+            width="280px"
+            />
+            <p className="text-sm">Aproveite todas as funcionalidades para gerenciar suas finanças de forma prática e segura!</p>
 
             <form onSubmit={onSubmit}>
 
-                <label>E-mail: </label>
-                <input type='email' name='email' placeholder='Digite o e-mail' onChange={valueInput} /><br /><br />
+                <InputText 
+                type='email' 
+                name='email' 
+                placeholder='Digite o e-mail' 
+                onChange={valueInput}
+                width={"full"}
+                />
+                <br /><br />
 
-                <label>Senha: </label>
-                <input type='password' name='senha' placeholder='Digite o nome' onChange={valueInput} /><br /><br />
+                <Password 
+                name='senha' 
+                placeholder='Digite a senha' 
+                onChange={valueInput}
+                feedback={false}
+                toggleMask
+                /><br /><br />
 
+                <Button label="Entrar" type='submit' icon="pi pi-check"/>
 
-                <button type='submit'>Enviar</button><br /><br />
-
+                <p className="text-sm">Não possui cadastro? <a href="">Cadastre-se</a> agora!</p>
             </form>
-        </>
+        </div>
     )
 }

@@ -34,7 +34,7 @@ function Dashboard() {
 
     const getSaldo = async() => {
         await api.
-        get(`/saldo/${userId}`).
+        get(`/saldo/usuario/${userId}`).
             then((res) => {
                 setSaldo(res.data.saldo);
                 console.log(res);
@@ -46,7 +46,7 @@ function Dashboard() {
 
     const getDespesas = async() => {
         await api.
-        get(`/despesa/${userId}`).
+        get(`/despesa/usuario/${userId}`).
             then((res) => {
                 setDespesas(res.data.despesas);
                 console.log(res);
