@@ -1,29 +1,14 @@
 import { useEffect } from "react";
 import api from "../../services/api";
+import useAuth from "../../contexts/auth";
 
-export default function CardUserInfo() {
+export default function CardUserInfo(data: any) {
     
-    useEffect(() => {
-
-        const headers = {
-            'headers': {
-                'Authorization': 'Bearer ' + "token",
-            }
-        };
-        
-        api.
-        get("/auth/getDetails", headers).
-            then((res) => {
-                console.log(res);
-                
-            }).catch((err) => {
-                console.error("Ocorreu um erro: " + err);
-                
-            });
-    })
+    const user  = data.data;    
     
-    return(
+    return (
         <>
+        <p>{ user.nome }</p>
         </>
     )
 }

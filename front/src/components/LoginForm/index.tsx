@@ -15,7 +15,7 @@ export default function LoginForm() {
         })
     }
 
-    const enterLogin = async (e: any) => {
+    const onSubmit = async (e: any) => {
         e.preventDefault();
         const headers = {
             'headers': {
@@ -26,7 +26,8 @@ export default function LoginForm() {
         await api
         .post('/login', data, headers)
             .then((res) => {
-                console.log(res);
+                const { token } = res.data
+                localStorage.setItem('token', token);
                 
                 setData({
                     email: '',
@@ -42,7 +43,7 @@ export default function LoginForm() {
         <>
             <h2>Acesse sua carteira digital</h2>
 
-            <form onSubmit={enterLogin}>
+            <form onSubmit={onSubmit}>
 
                 <label>E-mail: </label>
                 <input type='email' name='email' placeholder='Digite o e-mail' onChange={valueInput} /><br /><br />

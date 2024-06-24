@@ -1,11 +1,13 @@
 import './App.css';
-import Login from './pages/Login/Login';
+import { AuthProvider } from './contexts/auth';
+import AppRoutes from './routes';
 
 function App() {
   return (
     <div className="App">
-      Hello
-      <Login />
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </div>
   );
 }
