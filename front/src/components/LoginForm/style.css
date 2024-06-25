@@ -1,0 +1,7 @@
+.loginform .input-email {
+    padding-right: 2.5rem;
+}
+
+.loginform button {
+    display: flex;
+}

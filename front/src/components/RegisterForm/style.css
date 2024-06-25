@@ -1,0 +1,9 @@
+.registerform {
+    padding-inline: 30px;
+}
+
+.registerform .submit-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

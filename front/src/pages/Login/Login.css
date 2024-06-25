@@ -1,0 +1,49 @@
+.login {
+    display: flex;
+    justify-content: center;
+}
+
+.login .p-card {
+    margin-top: 30px;
+    width: 70%;
+}
+
+.login .p-card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.login .p-card-content .left,
+.login .p-card-content .right {
+    display: flex;
+    justify-content: center;
+}
+
+.login .p-card-content .right img {
+    width: 25rem;
+}
+
+@media screen and (max-width: 630px) {
+    .login .p-card {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 1144px) {
+    .login .p-card-content .left,
+    .login .p-card-content .right {
+        width: 100%;
+    }
+
+    .login .p-card-content .left {
+        padding-bottom: 30px;
+    }
+
+    .login .p-card-content .right img {
+        width: 100%;
+    }
+}

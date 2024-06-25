@@ -1,0 +1,15 @@
+.cadastro {
+    display: flex;
+    justify-content: center;
+}
+
+.cadastro .p-card {
+    margin-top: 30px;
+}
+
+@media screen and (max-width: 630px) {
+    .cadastro .p-card {
+        width: 100%;
+        margin: 0;
+    }
+}
