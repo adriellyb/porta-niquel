@@ -43,7 +43,7 @@ export default function CardUserInfo(data: any) {
                         <h2>{dataHora().horaAgora}</h2>
                         <p>{dataHora().diaSemana + ", " + dataHora().dataHoje}</p>
                     </div>
-                    <Divider layout="vertical" />
+                    <Divider layout="vertical" className="hidden md:block"/>
 
                     <div className="info-box flex flex-wrap">
                         <Image

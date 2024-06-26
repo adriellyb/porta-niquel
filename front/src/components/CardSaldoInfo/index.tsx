@@ -1,9 +1,9 @@
+import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 
 export default function CardSaldoInfo(data: any) {
 
-    const saldo = data.data[0];
-    console.log(saldo);
+    const saldo = data.data;
 
     const dataHora = (entrada:any) => {
         const data = new Date(entrada);
@@ -30,17 +30,21 @@ export default function CardSaldoInfo(data: any) {
         return dataAtualizada;
     }
 
+    const footer = (
+        <Button label="Atualizar saldo" icon="pi pi-check" size="small" outlined />
+    );
+
     return (
         <>
-            <Card subTitle="Meu saldo">
+            <Card subTitle="Meu saldo" footer={footer}>
                 {saldo ?
                     <>
-                        <h1>R$ {saldo.valor}</h1>
+                        <h1>R$ {saldo.saldo_atual}</h1>
                         <p className="text-sm" >
                             Ultima atualização: {dataHora(saldo.updatedAt).dataHoje} às {dataHora(saldo.updatedAt).horaAgora}
                         </p>
                         <p className="text-sm" >
-                            Saldo anterior:
+                            Saldo anterior: R$ {saldo.saldo_anterior}
                         </p>
                     </>
                     : null}
