@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
-
-import CardUserInfo from "../../components/CardUserInfo";
 import useAuth from "../../contexts/auth";
+import CardUserInfo from "../../components/CardUserInfo";
+import CardSaldoInfo from "../../components/CardSaldoInfo";
+
 import { Card } from "primereact/card";
 
 function Dashboard() {
@@ -38,7 +39,6 @@ function Dashboard() {
             get(`/saldo/usuario/${userId}`).
             then((res) => {
                 setSaldo(res.data.saldo);
-                console.log(res);
 
             }).catch((err) => {
                 console.error("Ocorreu um erro: " + err);
@@ -61,9 +61,9 @@ function Dashboard() {
         getDetails();
     }, []);
 
-    // useEffect(() => {  
-    //     getSaldo();        
-    // }, []);
+    useEffect(() => {  
+        getSaldo();        
+    }, []);
 
     // useEffect(() => {  
     //     getDespesas();        
@@ -80,7 +80,7 @@ function Dashboard() {
                 <div className="col-12 xl:col-4 p-3">
                     <div className="grid">
                         <div className="col-12 md:col-6 xl:col-12">
-                            <Card title="Meu saldo" subTitle="Última atualização:" />
+                            <CardSaldoInfo data={saldo} />
                         </div>
                         <div className="col-12 md:col-6 xl:col-12">
                             <Card title="Minhas despesas" subTitle="Despesas mais recentes" />

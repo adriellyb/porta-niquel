@@ -1,10 +1,10 @@
 import { Card } from "primereact/card";
 import { Image } from "primereact/image";
 import { Divider } from "primereact/divider";
+import { Button } from "primereact/button";
 
 import "./style.css";
 import img from "../../assets/girl.png"
-import { Button } from "primereact/button";
 
 export default function CardUserInfo(data: any) {
 
@@ -37,7 +37,7 @@ export default function CardUserInfo(data: any) {
 
     return (
         <>
-            <Card className="p-0">
+            <Card>
                 <div className="flex flex-wrap">
                     <div className="date">
                         <h2>{dataHora().horaAgora}</h2>
