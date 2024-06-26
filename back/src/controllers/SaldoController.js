@@ -1,3 +1,4 @@
+const LogSaldo = require('../models/LogSaldo');
 const Saldo = require('../models/Saldo');
 
 /** Create new register */
@@ -5,6 +6,8 @@ const create = async (req, res) => {
     console.log("1");
     try {
         const saldo = await Saldo.create(req.body);
+        criarLogSaldo(req.body.user_id)
+
         return res.status(200).json({ message: "Saldo registrado com sucesso!", saldo: saldo });
     }
     catch (err) {
@@ -75,13 +78,46 @@ const destroy = async (req, res) => {
     }
 };
 
+
+const criarLogSaldo = async (user_id) => {
+    console.log("6");
+    const saldo_atual = await Saldo.findOne({
+        where: { user_id: user_id },
+        order: [['updatedAt', 'DESC' ]]
+    })
+
+    const ultimoLog = await LogSaldo.findOne({
+        where: { user_id: user_id },
+        order: [['updatedAt', 'DESC' ]]
+    })
+    
+    const saldo_anterior = ultimoLog ? ultimoLog.saldo_atual : 0.00;
+    
+    const logData = {
+        user_id: user_id,
+        saldo_anterior: saldo_anterior,
+        saldo_atual: saldo_atual.valor
+    }
+    
+    try {
+        const log = await LogSaldo.create(logData);
+        console.log({ log: log.dataValues });
+    } catch (err) {
+        console.error(err.response.status);
+        throw new Error(err);
+    }
+}
+
 /** Pegando o saldo de acordo com o usuário */
 const saldoPorUsuario = async (req, res) => {
-    console.log("6");
+    console.log("7");
     const { userId } = req.params;
 
     try {
-        const saldo = await Saldo.findAll({ where: { user_id: userId } })
+        const saldo = await LogSaldo.findOne({ 
+            where: { user_id: userId },
+            order: [['updatedAt', 'DESC' ]] 
+        })
         return res.status(200).json({ saldo });
     }
     catch (err) {
@@ -96,5 +132,5 @@ module.exports = {
     create,
     update,
     destroy,
-    saldoPorUsuario
+    saldoPorUsuario,
 };

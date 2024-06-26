@@ -22,6 +22,7 @@ module.exports = sequelize;
 require('../models/User');
 require('../models/Saldo');
 require('../models/Despesa');
+require('../models/LogSaldo');
 
 for (mod in sequelize.models) {
   if (sequelize.models[mod].associate instanceof Function) {
