@@ -3,7 +3,8 @@ import api from "../../services/api";
 import useAuth from "../../contexts/auth";
 import CardUserInfo from "../../components/CardUserInfo";
 import CardSaldoInfo from "../../components/CardSaldoInfo";
-
+import CardDespesasInfo from "../../components/CardDespesasInfo";
+import DespesasForm from "../../components/DespesasForm";
 import { Card } from "primereact/card";
 
 function Dashboard() {
@@ -75,15 +76,22 @@ function Dashboard() {
                 <div className="col-12 xl:col-8 p-3">
                     <CardUserInfo data={userData} />
                     <br />
-                    <Card />
+                    <div className="grid">
+                        <div className="col-12 md:col-6">
+                            <CardSaldoInfo data={saldo} />
+                        </div>
+                        <div className="col-12 md:col-6">
+                            <CardDespesasInfo />
+                        </div>
+                    </div>
                 </div>
                 <div className="col-12 xl:col-4 p-3">
                     <div className="grid">
                         <div className="col-12 md:col-6 xl:col-12">
-                            <CardSaldoInfo data={saldo} />
+                            <DespesasForm />
                         </div>
                         <div className="col-12 md:col-6 xl:col-12">
-                            <Card title="Minhas despesas" subTitle="Despesas mais recentes" />
+                            <Card />
                         </div>
                     </div>
                 </div>
