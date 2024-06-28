@@ -23,8 +23,8 @@ export default function CardUserInfo(data: any) {
         ]
 
         const mes = data.getMonth() + 1;
-        let hora = data.getHours() <= 9 ? "0"+data.getHours() : data.getHours();
-        let minutos = data.getMinutes() <= 9 ? "0"+data.getMinutes() : data.getMinutes();
+        let hora = data.getHours() <= 9 ? "0" + data.getHours() : data.getHours();
+        let minutos = data.getMinutes() <= 9 ? "0" + data.getMinutes() : data.getMinutes();
 
         const dataAtualizada = {
             dataHoje: data.getDate() + "/" + mes + "/" + data.getFullYear(),
@@ -43,7 +43,7 @@ export default function CardUserInfo(data: any) {
                         <h2>{dataHora().horaAgora}</h2>
                         <p>{dataHora().diaSemana + ", " + dataHora().dataHoje}</p>
                     </div>
-                    <Divider layout="vertical" className="hidden md:block"/>
+                    <Divider layout="vertical" className="hidden md:block" />
 
                     <div className="info-box flex flex-wrap">
                         <Image

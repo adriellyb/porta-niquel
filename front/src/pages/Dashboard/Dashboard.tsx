@@ -51,8 +51,7 @@ function Dashboard() {
             get(`/despesa/usuario/${userId}`).
             then((res) => {
                 setDespesas(res.data.despesas);
-                console.log(res);
-
+                
             }).catch((err) => {
                 console.error("Ocorreu um erro: " + err);
             });
@@ -66,9 +65,9 @@ function Dashboard() {
         getSaldo();        
     }, []);
 
-    // useEffect(() => {  
-    //     getDespesas();        
-    // }, []);
+    useEffect(() => {  
+        getDespesas();        
+    }, []);
 
     return (
         <>
@@ -81,7 +80,7 @@ function Dashboard() {
                             <CardSaldoInfo data={saldo} />
                         </div>
                         <div className="col-12 md:col-6">
-                            <CardDespesasInfo />
+                            <CardDespesasInfo data={despesas} />
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,17 @@
+.p-datascroller .p-datascroller-content::-webkit-scrollbar {
+    /* height: 5px; */
+    width: 8px;
+}
+
+.p-datascroller .p-datascroller-content::-webkit-scrollbar-track {
+    border-radius: 0px;
+    background-color: #F9FAFB;
+}
+
+.p-datascroller .p-datascroller-content::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: #e4e4e4;
+}
+
+.p-datascroller .p-datascroller-content {
+}
