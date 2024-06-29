@@ -114,7 +114,7 @@ const saldoPorUsuario = async (req, res) => {
     const { userId } = req.params;
 
     try {
-        const saldo = await LogSaldo.findOne({ 
+        const saldo = await LogSaldo.findAll({ 
             where: { user_id: userId },
             order: [['updatedAt', 'DESC' ]] 
         })
