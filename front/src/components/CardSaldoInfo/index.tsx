@@ -6,7 +6,7 @@ import api from "../../services/api";
 
 export default function CardSaldoInfo(data: any) {
 
-    const saldo = data.data;
+    const saldo = data.data[0];    
 
     const user_id = localStorage.getItem("id");
     const [saldoData, setSaldoData] = useState({
@@ -38,6 +38,20 @@ export default function CardSaldoInfo(data: any) {
         }
 
         return dataAtualizada;
+    }
+
+    const formatarValor = (entrada: string) => {
+
+        const strValor = (entrada).toString();
+        const idx = strValor.indexOf(".");
+        let valorFormatado = "";
+
+        if (idx === -1) valorFormatado = strValor+",00"
+        else {
+            valorFormatado = strValor.replace(".", ",")
+            if (!strValor[idx+2]) valorFormatado = valorFormatado + "0"
+        }        
+        return valorFormatado
     }
 
     const valueInput = (e: any) => {
@@ -87,12 +101,12 @@ export default function CardSaldoInfo(data: any) {
             <Card subTitle="Meu saldo">
                 {saldo ?
                     <>
-                        <h1>R$ {saldo.saldo_atual}</h1>
+                        <h1>R$ {formatarValor(saldo.saldo_atual)}</h1>
                         <p className="text-sm" >
                             Ultima atualização: {dataHora(saldo.updatedAt).dataHoje} às {dataHora(saldo.updatedAt).horaAgora}
                         </p>
                         <p className="text-sm" >
-                            Saldo anterior: R$ {saldo.saldo_anterior}
+                            Saldo anterior: R$ {formatarValor(saldo.saldo_anterior)}
                         </p>
                         <br />
                         <Button
@@ -109,10 +123,13 @@ export default function CardSaldoInfo(data: any) {
                         </div>
                     </>
                     :
-                    <div hidden={false}>
-                        <br />
-                        {form()}
-                    </div>
+                    <>
+                        <p>Sem saldo.</p>
+                        <div hidden={false}>
+                            <br />
+                            {form()}
+                        </div>
+                    </>
                 }
             </Card>
         </>

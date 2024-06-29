@@ -1,11 +1,9 @@
 import { Card } from "primereact/card";
 import { DataScroller } from "primereact/datascroller";
 
-import "./style.css";
+export default function CardSaldoHistorico(data: any) {
 
-export default function CardDespesasInfo(data: any) {
-
-    const despesas = data.data;
+    const saldos = data.data;
 
     const dataHora = (entrada: any) => {
         const data = new Date(entrada);
@@ -48,30 +46,19 @@ export default function CardDespesasInfo(data: any) {
 
     const itemTemplate = (item: any) => {
         return (
-            <div 
-            className="flex flex-wrap justify-content-between align-items-start w-full py-3">
-                <div className="flex-1 flex flex-column xl:mr-8">
-                    <span className="font-bold text-sm pb-2">{item.destino}</span>
-                    <div className="flex align-items-center gap-2">
-                        <i className="pi pi-tag text-sm"></i>
-                        <span className="text-sm">{item.metodo_pag}</span>
-                    </div>
-                </div>
-                <div className="flex flex-column align-items-end">
-                    <span className="font-bold text-900">R$ {formatarValor(item.valor)}</span>
-                    <span className="text-sm pt-2">{dataHora(item.createdAt).dataHoje}</span>
-                </div>
+            <div className="flex flex-wrap justify-content-between align-items-center w-full py-3">
+                    <span className="font-bold text-900">R$ {formatarValor(item.saldo_atual)}</span>
+                    <span className="text-sm">{dataHora(item.updatedAt).dataHoje}</span>
             </div>
         );
     };
 
-
     return (
         <>
-            <Card subTitle="Minhas despesas">
-                <div className="card xl:flex xl:justify-content-center">
+            <Card subTitle="Histórico de saldos">
+                <div className="">
                     <DataScroller
-                        value={despesas}
+                        value={saldos}
                         itemTemplate={itemTemplate}
                         rows={5}
                         inline

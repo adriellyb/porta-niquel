@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
-import useAuth from "../../contexts/auth";
 import CardUserInfo from "../../components/CardUserInfo";
 import CardSaldoInfo from "../../components/CardSaldoInfo";
 import CardDespesasInfo from "../../components/CardDespesasInfo";
 import DespesasForm from "../../components/DespesasForm";
-import { Card } from "primereact/card";
+import CardSaldoHistorico from "../../components/CardSaldoHistorico";
 
 function Dashboard() {
 
@@ -80,17 +79,17 @@ function Dashboard() {
                             <CardSaldoInfo data={saldo} />
                         </div>
                         <div className="col-12 md:col-6">
-                            <CardDespesasInfo data={despesas} />
+                            <CardSaldoHistorico data={saldo} />
                         </div>
                     </div>
                 </div>
                 <div className="col-12 xl:col-4 p-3">
                     <div className="grid">
                         <div className="col-12 md:col-6 xl:col-12">
-                            <DespesasForm />
+                            <CardDespesasInfo data={despesas} />
                         </div>
                         <div className="col-12 md:col-6 xl:col-12">
-                            <Card />
+                            <DespesasForm />
                         </div>
                     </div>
                 </div>
