@@ -4,9 +4,10 @@ interface AuthContextData {
     signed: boolean;
     token: string;
     userId: number;
+    signOut(): void;
 }
 
-const AuthContext = createContext({});
+const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export function AuthProvider({ children }: any) {
 
@@ -43,6 +44,10 @@ export function AuthProvider({ children }: any) {
         return id;
     }
 
+    function signOut() {
+        localStorage.clear();
+    }
+
     useEffect(() => {
         userToken().then(value => {
             setAuthorization(value);
@@ -57,7 +62,7 @@ export function AuthProvider({ children }: any) {
 
 
     return (
-        <AuthContext.Provider value={{ signed: true, token: authorization, userId: userId }}>
+        <AuthContext.Provider value={{ signed: true, token: authorization, userId: userId, signOut }}>
             {children}
         </AuthContext.Provider>
     )

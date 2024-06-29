@@ -1,14 +1,30 @@
+import { useState } from "react";
+import api from "../../services/api";
+import useAuth from "../../contexts/auth";
+
+import { InputText } from "primereact/inputtext";
 import { Card } from "primereact/card";
 import { Image } from "primereact/image";
 import { Divider } from "primereact/divider";
 import { Button } from "primereact/button";
+import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
 import "./style.css";
 import img from "../../assets/girl.png"
+import { useNavigate } from "react-router-dom";
 
 export default function CardUserInfo(data: any) {
 
     const user = data.data;
+    const { signOut } = useAuth();
+    const navigate = useNavigate();
+    const [visible, setVisible] = useState(false);
+    const [showForm, setForm] = useState<any>(true);
+    const [userData, setUserData] = useState({
+        nome: '',
+        telefone: '',
+        nascimento: '',
+    });
 
     const dataHora = () => {
         const data = new Date();
@@ -35,6 +51,81 @@ export default function CardUserInfo(data: any) {
         return dataAtualizada;
     }
 
+    const valueInput = (e: any) => {
+        setUserData({
+            ...data,
+            [e.target.name]: e.target.name === "metodo_pag" ? e.target.value.name : e.target.value
+        })
+    }
+
+    const onSubmit = async (e: any) => {
+        e.preventDefault();
+        api.
+            put(`user/${user.sub}`, userData)
+            .then((res) => {
+                console.log("Usuário alterado.");
+
+                setUserData({
+                    nome: '',
+                    telefone: '',
+                    nascimento: '',
+                });
+            }).catch((err) => {
+                console.error("Ocorreu um erro: " + err);
+            });
+    }
+
+    const sair = () => {
+        confirmDialog({
+            message: 'Deseja desconectar de sua conta?',
+            header: 'Sair',
+            icon: 'pi pi-info-circle',
+            defaultFocus: 'reject',
+            acceptClassName: 'p-button-danger',
+            acceptLabel: "Sim",
+            rejectLabel: "Não",
+            accept: () => {
+                signOut();
+                navigate("/");
+            }
+        });
+    }
+
+    const form = () => {
+        return (
+            <>
+                <br />
+                <form onSubmit={onSubmit}>
+                    <InputText
+                        name='nome'
+                        placeholder={user.nome}
+                        onChange={valueInput}
+                        className="mr-3 mb-3"
+                    />
+
+                    <InputText
+                        name='telefone'
+                        placeholder={user.telefone}
+                        onChange={valueInput}
+                        className="mr-3 mb-3"
+                    />
+
+                    <InputText
+                        name='nascimento'
+                        type="date"
+                        value=""
+                        placeholder={user.nascimento}
+                        onChange={valueInput}
+                        className="mr-3 mb-3"
+
+                    />
+                    <br />
+                    <Button label="Salvar" type='submit' icon="pi pi-check" size="small" />
+                </form>
+            </>
+        )
+    }
+
     return (
         <>
             <Card>
@@ -56,19 +147,26 @@ export default function CardUserInfo(data: any) {
                             <p className="text-sm">Não esqueça de manter seu saldo e suas despesas atualizados.</p>
                             <div className="flex">
                                 <Button
-                                    label="Editar dados"
+                                    label="Editar perfil"
                                     icon="pi pi-user-edit"
                                     size="small"
+                                    onClick={() => setForm(!showForm)}
                                 />
                                 <Button
                                     icon="pi pi-sign-out"
                                     size="small"
                                     severity="danger"
                                     className="mx-3"
+                                    onClick={sair}
                                 />
                             </div>
+                            <ConfirmDialog />
                         </div>
                     </div>
+                </div>
+                <div hidden={showForm}>
+                    <br />
+                    {form()}
                 </div>
             </Card>
         </>
