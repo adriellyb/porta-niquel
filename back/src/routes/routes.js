@@ -33,5 +33,6 @@ router.post('/despesa', DespesaController.create);
 router.put('/despesa/:id', DespesaController.update);
 router.delete('/despesa/:id', DespesaController.destroy);
 router.get('/despesa/usuario/:userId', DespesaController.despesasPorUsuario);
+router.put('/despesa/deletar/:id', DespesaController.softDelete);
 
 module.exports = router;

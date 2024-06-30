@@ -4,8 +4,8 @@ const LogSaldo = require('../models/LogSaldo');
 /** Create new register */
 const create = async (req, res) => {
     console.log("1");
-
     try {
+        req.body.deletado = 0; // soft delete
         const despesa = await Despesa.create(req.body);
         calcularSaldo(req.body.user_id, req.body.valor, "sub");
 
@@ -86,7 +86,7 @@ const despesasPorUsuario = async (req, res) => {
 
     try {
         const despesas = await Despesa.findAll({ 
-            where: { user_id: userId },
+            where: { user_id: userId, deletado: 0 },
             order: [[ "createdAt", "DESC"]]
         })
         return res.status(200).json({ despesas });
@@ -96,8 +96,32 @@ const despesasPorUsuario = async (req, res) => {
     }
 }
 
-const calcularSaldo = async (user_id, valor, op) => {
+/** Aplicando um soft delete na despesa selecionada */
+const softDelete = async(req, res) => {
     console.log("7");
+    try {
+        const { id } = req.params;
+        req.body.deletado = 1;
+        
+        const [updated] = await Despesa.update(req.body, {
+            where: { id: id }
+        });
+        
+        if (updated) {
+            const despesa = await Despesa.findByPk(id);
+            calcularSaldo(despesa.user_id, despesa.valor, "add");
+            
+            return res.status(200).json({message: "Despesa deletada."});
+        }
+        throw new Error('Registro não encontrado.');
+    } catch (err) {
+        return res.status(500).json(`${err}`);
+    }
+}
+
+/** Calculando saldo de acordo as operações de subtração ou adição de despesas */
+const calcularSaldo = async (user_id, valor, op) => {
+    console.log("8");
 
     const ultimoLog = await LogSaldo.findOne({
         where: { user_id: user_id },
@@ -128,4 +152,5 @@ module.exports = {
     update,
     destroy,
     despesasPorUsuario,
+    softDelete
 };

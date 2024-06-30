@@ -24,6 +24,11 @@ const Despesa = sequelize.define('Despesa', {
         allowNull: true,
     },
 
+    deletado: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+
 });
 
 module.exports = Despesa;
