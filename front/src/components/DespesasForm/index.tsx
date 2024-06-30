@@ -6,10 +6,12 @@ import { Dropdown } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function DespesasForm() {
 
     const user_id = localStorage.getItem("id");
+    const navigate = useNavigate();
     const [selectedModoPag, setSelectedModoPag] = useState<any>([]);
     const [data, setData] = useState({
         user_id: user_id,
@@ -50,6 +52,7 @@ export default function DespesasForm() {
                     destino: '',
                     metodo_pag: '',
                 });
+                navigate(0);
             }).catch((err) => {
                 console.error("Ocorreu um erro: " + err);
             });

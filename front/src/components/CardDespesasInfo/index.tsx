@@ -1,12 +1,21 @@
+import { useRef, useState } from "react";
+
 import { Card } from "primereact/card";
 import { DataScroller } from "primereact/datascroller";
+import { OverlayPanel } from "primereact/overlaypanel";
+import { Button } from "primereact/button";
 
 import "./style.css";
+import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function CardDespesasInfo(data: any) {
 
-    const despesas = data.data;
-
+    const despesas = data.data;    
+    const op = useRef<any>(null);
+    const navigate = useNavigate();
+    const [id, setId] = useState<number>(0)
+    
     const dataHora = (entrada: any) => {
         const data = new Date(entrada);
         const dias = [
@@ -33,7 +42,6 @@ export default function CardDespesasInfo(data: any) {
     }
 
     const formatarValor = (entrada: string) => {
-
         const strValor = (entrada).toString();
         const idx = strValor.indexOf(".");
         let valorFormatado = "";
@@ -46,22 +54,45 @@ export default function CardDespesasInfo(data: any) {
         return valorFormatado
     }
 
+    const deletarDespesa = () => {
+        api.
+            put(`/despesa/deletar/${id}`)
+            .then((res) => {
+                console.log("Despesa deletada.");
+                navigate(0);
+            }).catch((err) => {
+                console.error("Ocorreu um erro: " + err);
+            });
+    }
+
     const itemTemplate = (item: any) => {
         return (
-            <div 
-            className="flex flex-wrap justify-content-between align-items-start w-full py-3">
-                <div className="flex-1 flex flex-column xl:mr-8">
-                    <span className="font-bold text-sm pb-2">{item.destino}</span>
-                    <div className="flex align-items-center gap-2">
-                        <i className="pi pi-tag text-sm"></i>
-                        <span className="text-sm">{item.metodo_pag}</span>
+            <>
+                <div 
+                className="flex flex-wrap justify-content-between align-items-start w-full py-3 cursor-pointer"
+                onClick={(e) => {op.current.toggle(e); setId(item.id);}}
+                >
+                    <div className="flex-1 flex flex-column xl:mr-8">
+                        <span className="font-bold text-sm pb-2">{item.destino}</span>
+                        <div className="flex align-items-center gap-2">
+                            <i className="pi pi-tag text-sm"></i>
+                            <span className="text-sm">{item.metodo_pag}</span>
+                        </div>
                     </div>
+                    <div className="flex flex-column align-items-end">
+                        <span className="font-bold text-900">R$ {formatarValor(item.valor)}</span>
+                        <span className="text-sm pt-2">{dataHora(item.createdAt).dataHoje}</span>
+                    </div>
+                    <OverlayPanel ref={op}>
+                        <Button 
+                        icon="pi pi-trash" 
+                        severity="danger" 
+                        size="small"
+                        onClick={() => deletarDespesa()}
+                        />
+                    </OverlayPanel>
                 </div>
-                <div className="flex flex-column align-items-end">
-                    <span className="font-bold text-900">R$ {formatarValor(item.valor)}</span>
-                    <span className="text-sm pt-2">{dataHora(item.createdAt).dataHoje}</span>
-                </div>
-            </div>
+            </>
         );
     };
 

@@ -70,6 +70,7 @@ export default function CardUserInfo(data: any) {
                     telefone: '',
                     nascimento: '',
                 });
+                navigate(0);
             }).catch((err) => {
                 console.error("Ocorreu um erro: " + err);
             });

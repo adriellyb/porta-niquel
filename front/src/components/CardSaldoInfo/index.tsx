@@ -4,12 +4,13 @@ import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { InputNumber } from "primereact/inputnumber";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CardSaldoInfo(data: any) {
 
     const saldo = data.data[0];    
-
     const user_id = localStorage.getItem("id");
+    const navigate = useNavigate();
     const [saldoData, setSaldoData] = useState({
         user_id: user_id,
         valor: '',
@@ -73,6 +74,7 @@ export default function CardSaldoInfo(data: any) {
                     user_id: user_id,
                     valor: '',
                 });
+                navigate(0);
             }).catch((err) => {
                 console.error("Ocorreu um erro: " + err);
             });
