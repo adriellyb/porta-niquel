@@ -7,6 +7,7 @@ import { Password } from "primereact/password";
 import { Image } from "primereact/image";
 import { Divider } from "primereact/divider";
 import { Toast } from "primereact/toast";
+import { InputMask } from "primereact/inputmask";
 
 import logo from '../../assets/logo.png'
 import "./style.css";
@@ -70,7 +71,7 @@ export default function RegisterForm() {
             <form onSubmit={onSubmit}>
 
                 <div className="grid">
-                    <div className="col">
+                    <div className="col-12 xl:col-6">
                         <Divider align="center">
                             <span><small>Dados Pessoais</small></span>
                         </Divider>
@@ -78,29 +79,37 @@ export default function RegisterForm() {
                         <InputText
                             name='nome'
                             placeholder='Nome'
+                            className="w-full"
                             onChange={valueInput}
+                            required={true}
                         />
                         <br /><br />
 
-                        <InputText
+                        <InputMask
                             name='telefone'
-                            placeholder='Telefone'
+                            placeholder='Celular'
+                            mask="(99) 99999-9999"
+                            className="w-full"
                             onChange={valueInput}
+                            required={true}
                         />
                         <br /><br />
 
-                        <InputText
+                        <InputMask
                             name='nascimento'
-                            type="date"
                             placeholder='Data de Nascimento'
+                            mask="99/99/9999"
+                            slotChar="dd/mm/aaaa"
+                            className="w-full"
                             onChange={valueInput}
+                            required={true}
 
                         />
                         <br /><br />
 
                     </div>
 
-                    <div className="col">
+                    <div className="col-12 xl:col-6">
                         <Divider align="center">
                             <span><small>Dados de Conta</small></span>
                         </Divider>
@@ -109,14 +118,18 @@ export default function RegisterForm() {
                             type='email'
                             name='email'
                             placeholder='E-mail'
+                            className="w-full"
                             onChange={valueInput}
+                            required={true}
                         />
                         <br /><br />
 
                         <Password
                             name='senha'
                             placeholder='Senha'
+                            className="w-full"
                             onChange={valueInput}
+                            required={true}
                             feedback={false}
                             toggleMask
                         /><br /><br />

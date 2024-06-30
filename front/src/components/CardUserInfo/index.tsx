@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../../services/api";
 import useAuth from "../../contexts/auth";
+import { useNavigate } from "react-router-dom";
 
 import { InputText } from "primereact/inputtext";
 import { Card } from "primereact/card";
@@ -8,17 +9,16 @@ import { Image } from "primereact/image";
 import { Divider } from "primereact/divider";
 import { Button } from "primereact/button";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
+import { InputMask } from "primereact/inputmask";
 
 import "./style.css";
 import img from "../../assets/girl.png"
-import { useNavigate } from "react-router-dom";
 
 export default function CardUserInfo(data: any) {
 
     const user = data.data;
     const { signOut } = useAuth();
     const navigate = useNavigate();
-    const [visible, setVisible] = useState(false);
     const [showForm, setForm] = useState<any>(true);
     const [userData, setUserData] = useState({
         nome: '',
@@ -103,18 +103,19 @@ export default function CardUserInfo(data: any) {
                         className="mr-3 mb-3"
                     />
 
-                    <InputText
+                    <InputMask
                         name='telefone'
                         placeholder={user.telefone}
+                        mask="(99) 99999-9999"
                         onChange={valueInput}
                         className="mr-3 mb-3"
                     />
 
-                    <InputText
+                    <InputMask
                         name='nascimento'
-                        type="date"
-                        value=""
-                        placeholder={user.nascimento}
+                        placeholder={ user.nascimento}
+                        mask="99/99/9999"
+                        slotChar="dd/mm/aaaa"
                         onChange={valueInput}
                         className="mr-3 mb-3"
 

@@ -1,6 +1,8 @@
-import './App.css';
 import { AuthProvider } from './contexts/auth';
+
 import { PrimeReactProvider } from 'primereact/api';
+
+import './App.css';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "/node_modules/primeflex/primeflex.css";
 import 'primeicons/primeicons.css';
