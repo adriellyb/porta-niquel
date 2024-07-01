@@ -47,7 +47,12 @@ export default function CardSaldoHistorico(data: any) {
     const itemTemplate = (item: any) => {
         return (
             <div className="flex flex-wrap justify-content-between align-items-center w-full py-3">
-                    <span className="font-bold text-900">R$ {formatarValor(item.saldo_atual)}</span>
+                    <span 
+                        className="font-bold"
+                        style={{color: item.aumentou ? "green" : "red"}}
+                    >
+                        R$ {formatarValor(item.saldo_atual)}
+                    </span>
                     <span className="text-sm">{dataHora(item.updatedAt).dataHoje}</span>
             </div>
         );

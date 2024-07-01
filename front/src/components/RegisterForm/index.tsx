@@ -41,7 +41,11 @@ export default function RegisterForm() {
 
     const onSubmit = async (e: any) => {
         e.preventDefault();
-        show()
+
+        const separar = (data.nascimento).split('/');
+        const juntar = separar[1]+'-'+separar[0]+'-'+separar[2];
+        data.nascimento = juntar;
+        
         await api
             .post('/user', data)
             .then((res) => {

@@ -1,12 +1,13 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Dropdown } from "primereact/dropdown";
+import { InputMask } from "primereact/inputmask";
 import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function DespesasForm() {
 
@@ -18,6 +19,7 @@ export default function DespesasForm() {
         valor: '',
         destino: '',
         metodo_pag: '',
+        data_pag: ''
     });
     const formasDePagamento = [
         { name: 'Dinheiro' },
@@ -41,6 +43,10 @@ export default function DespesasForm() {
     const onSubmit = async (e: any) => {
         e.preventDefault();
 
+        const separar = (data.data_pag).split('/');
+        const juntar = separar[1]+'-'+separar[0]+'-'+separar[2];
+        data.data_pag = juntar;
+        
         api.
             post('/despesa', data)
             .then((res) => {
@@ -51,6 +57,7 @@ export default function DespesasForm() {
                     valor: '',
                     destino: '',
                     metodo_pag: '',
+                    data_pag: ''
                 });
                 navigate(0);
             }).catch((err) => {
@@ -91,6 +98,16 @@ export default function DespesasForm() {
                         checkmark={true}
                         highlightOnSelect={false}
                         value={selectedModoPag}
+                        className="w-full"
+                        onChange={valueInput}
+                    />
+                    <br /><br />
+
+                    <InputMask
+                        name="data_pag"
+                        placeholder="Data da Compra"
+                        mask="99/99/9999"
+                        slotChar="dd/mm/aaaa"
                         className="w-full"
                         onChange={valueInput}
                     />

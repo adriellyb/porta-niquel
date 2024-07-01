@@ -1,4 +1,6 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../../services/api";
 
 import { Card } from "primereact/card";
 import { DataScroller } from "primereact/datascroller";
@@ -6,16 +8,14 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { Button } from "primereact/button";
 
 import "./style.css";
-import api from "../../services/api";
-import { useNavigate } from "react-router-dom";
 
 export default function CardDespesasInfo(data: any) {
 
-    const despesas = data.data;    
+    const despesas = data.data;
     const op = useRef<any>(null);
     const navigate = useNavigate();
     const [id, setId] = useState<number>(0)
-    
+
     const dataHora = (entrada: any) => {
         const data = new Date(entrada);
         const dias = [
@@ -46,11 +46,11 @@ export default function CardDespesasInfo(data: any) {
         const idx = strValor.indexOf(".");
         let valorFormatado = "";
 
-        if (idx === -1) valorFormatado = strValor+",00"
+        if (idx === -1) valorFormatado = strValor + ",00"
         else {
             valorFormatado = strValor.replace(".", ",")
-            if (!strValor[idx+2]) valorFormatado = valorFormatado + "0"
-        }        
+            if (!strValor[idx + 2]) valorFormatado = valorFormatado + "0"
+        }
         return valorFormatado
     }
 
@@ -68,27 +68,28 @@ export default function CardDespesasInfo(data: any) {
     const itemTemplate = (item: any) => {
         return (
             <>
-                <div 
-                className="flex flex-wrap justify-content-between align-items-start w-full py-3 cursor-pointer"
-                onClick={(e) => {op.current.toggle(e); setId(item.id);}}
+                <div
+                    className="flex flex-wrap justify-content-between align-items-start w-full py-3 cursor-pointer"
+                    onClick={(e) => { op.current.toggle(e); setId(item.id); }}
                 >
                     <div className="flex-1 flex flex-column xl:mr-8">
                         <span className="font-bold text-sm pb-2">{item.destino}</span>
-                        <div className="flex align-items-center gap-2">
+                        <div className="flex align-items-center gap-2 pb-2">
                             <i className="pi pi-tag text-sm"></i>
                             <span className="text-sm">{item.metodo_pag}</span>
                         </div>
                     </div>
                     <div className="flex flex-column align-items-end">
                         <span className="font-bold text-900">R$ {formatarValor(item.valor)}</span>
-                        <span className="text-sm pt-2">{dataHora(item.createdAt).dataHoje}</span>
+                        <span className="text-sm pt-2">{dataHora(item.data_pag).dataHoje}</span>
                     </div>
                     <OverlayPanel ref={op}>
-                        <Button 
-                        icon="pi pi-trash" 
-                        severity="danger" 
-                        size="small"
-                        onClick={() => deletarDespesa()}
+                        <Button
+                            icon="pi pi-trash"
+                            severity="danger"
+                            size="small"
+                            className="p-2 mx-1"
+                            onClick={() => deletarDespesa()}
                         />
                     </OverlayPanel>
                 </div>
@@ -96,11 +97,10 @@ export default function CardDespesasInfo(data: any) {
         );
     };
 
-
     return (
         <>
             <Card subTitle="Minhas despesas">
-                <div className="card xl:flex xl:justify-content-center">
+                <div>
                     <DataScroller
                         value={despesas}
                         itemTemplate={itemTemplate}
