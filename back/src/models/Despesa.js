@@ -24,6 +24,11 @@ const Despesa = sequelize.define('Despesa', {
         allowNull: true,
     },
 
+    data_pag: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+
     deletado: {
         type: DataTypes.INTEGER,
         allowNull: true,

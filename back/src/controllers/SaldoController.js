@@ -78,7 +78,7 @@ const destroy = async (req, res) => {
     }
 };
 
-
+/** Calculando saldo de acordo as operações de subtração ou adição de despesas */
 const criarLogSaldo = async (user_id) => {
     console.log("6");
     const saldo_atual = await Saldo.findOne({
@@ -96,7 +96,8 @@ const criarLogSaldo = async (user_id) => {
     const logData = {
         user_id: user_id,
         saldo_anterior: saldo_anterior,
-        saldo_atual: saldo_atual.valor
+        saldo_atual: saldo_atual.valor,
+        aumentou: saldo_atual.valor >= saldo_anterior ? 1 : 0
     }
     
     try {

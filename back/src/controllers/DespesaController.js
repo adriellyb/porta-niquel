@@ -87,7 +87,7 @@ const despesasPorUsuario = async (req, res) => {
     try {
         const despesas = await Despesa.findAll({ 
             where: { user_id: userId, deletado: 0 },
-            order: [[ "createdAt", "DESC"]]
+            order: [[ "data_pag", "DESC"]]
         })
         return res.status(200).json({ despesas });
     }
@@ -129,11 +129,13 @@ const calcularSaldo = async (user_id, valor, op) => {
     })
     
     const saldo_anterior = ultimoLog.saldo_atual;
+    const saldo_calculado = op === "sub" ? saldo_anterior - valor : saldo_anterior + valor;
     
     const logData = {
         user_id: user_id,
         saldo_anterior: saldo_anterior,
-        saldo_atual: op === "sub" ? saldo_anterior - valor : saldo_anterior + valor
+        saldo_atual: saldo_calculado,
+        aumentou: saldo_calculado >= saldo_anterior ? 1 : 0
     }
     
     try {

@@ -19,6 +19,11 @@ const LogSaldo = sequelize.define('LogSaldo', {
         allowNull: false,
     },
 
+    aumentou: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+
 },
 {
     tableName: "log_saldos",
