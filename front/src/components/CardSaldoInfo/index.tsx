@@ -91,6 +91,7 @@ export default function CardSaldoInfo(data: any) {
                     currency="BRL"
                     locale="pt-BR"
                     className="w-full"
+                    required={true}
                     onValueChange={valueInput}
                 />
                 <br /><br />

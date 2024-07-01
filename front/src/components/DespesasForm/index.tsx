@@ -78,6 +78,7 @@ export default function DespesasForm() {
                         currency="BRL"
                         locale="pt-BR"
                         className="w-full"
+                        required={true}
                         onValueChange={valueInput}
                     />
                     <br /><br />
@@ -86,6 +87,7 @@ export default function DespesasForm() {
                         name='destino'
                         placeholder='Tipo da Despesa'
                         className="w-full"
+                        required={true}
                         onChange={valueInput}
                     />
                     <br /><br />
@@ -99,6 +101,7 @@ export default function DespesasForm() {
                         highlightOnSelect={false}
                         value={selectedModoPag}
                         className="w-full"
+                        required={true}
                         onChange={valueInput}
                     />
                     <br /><br />
@@ -109,6 +112,7 @@ export default function DespesasForm() {
                         mask="99/99/9999"
                         slotChar="dd/mm/aaaa"
                         className="w-full"
+                        required={true}
                         onChange={valueInput}
                     />
                     <br /><br />

@@ -61,21 +61,22 @@ export default function LoginForm() {
             <form onSubmit={onSubmit}>
 
                 <InputText
-                    className="input-email"
                     type='email'
                     name='email'
                     placeholder='E-mail'
+                    className="input-email"
+                    required={true}
                     onChange={valueInput}
-                    width={"full"}
                 />
                 <br /><br />
 
                 <Password
                     name='senha'
                     placeholder='Senha'
-                    onChange={valueInput}
                     feedback={false}
                     toggleMask
+                    required={true}
+                    onChange={valueInput}
                 />
                 <br /><br />
 
