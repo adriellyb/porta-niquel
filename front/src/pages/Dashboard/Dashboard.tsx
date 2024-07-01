@@ -14,7 +14,6 @@ function Dashboard() {
     const [despesas, setDespesas]: any = useState([]);
 
     const token = "Bearer " + localStorage.getItem("token");
-    const userId = localStorage.getItem("id");
 
     const getDetails = async () => {
         const headers = {
@@ -29,13 +28,15 @@ function Dashboard() {
                 localStorage.setItem("id", sub);
 
                 setUserData(res.data.user);
+                getSaldo(sub);
+                getDespesas(sub);
 
             }).catch((err) => {
                 console.error("Ocorreu um erro: " + err);
             });
     }
 
-    const getSaldo = async () => {
+    const getSaldo = async (userId:any) => {
         await api.
             get(`/saldo/usuario/${userId}`).
             then((res) => {
@@ -46,7 +47,7 @@ function Dashboard() {
             });
     }
 
-    const getDespesas = async () => {
+    const getDespesas = async (userId: any) => {
         await api.
             get(`/despesa/usuario/${userId}`).
             then((res) => {
@@ -60,18 +61,10 @@ function Dashboard() {
     useEffect(() => {
         getDetails();
     }, []);
-
-    useEffect(() => {  
-        getSaldo();        
-    }, []);
-
-    useEffect(() => {  
-        getDespesas();        
-    }, []);
-
+    
     return (
         <>
-            <div className="grid">
+            <div className="grid m-0">
                 <div className="col-12 xl:col-8 p-3">
                     <CardUserInfo data={userData} />
                     <br />

@@ -49,7 +49,7 @@ export default function CardSaldoHistorico(data: any) {
             <div className="flex flex-wrap justify-content-between align-items-center w-full py-3">
                     <span 
                         className="font-bold"
-                        style={{color: item.aumentou ? "green" : "red"}}
+                        style={{color: item.aumentou ? "#22c55e" : "#ef4444"}}
                     >
                         R$ {formatarValor(item.saldo_atual)}
                     </span>

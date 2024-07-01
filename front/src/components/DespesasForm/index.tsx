@@ -17,9 +17,9 @@ export default function DespesasForm() {
     const [data, setData] = useState({
         user_id: user_id,
         valor: '',
+        data_pag: '',
         destino: '',
         metodo_pag: '',
-        data_pag: ''
     });
     const formasDePagamento = [
         { name: 'Dinheiro' },
@@ -55,9 +55,9 @@ export default function DespesasForm() {
                 setData({
                     user_id: user_id,
                     valor: '',
+                    data_pag: '',
                     destino: '',
                     metodo_pag: '',
-                    data_pag: ''
                 });
                 navigate(0);
             }).catch((err) => {
@@ -83,6 +83,17 @@ export default function DespesasForm() {
                     />
                     <br /><br />
 
+                    <InputMask
+                        name="data_pag"
+                        placeholder="Data da Compra"
+                        mask="99/99/9999"
+                        slotChar="dd/mm/aaaa"
+                        className="w-full"
+                        required={true}
+                        onChange={valueInput}
+                    />
+                    <br /><br />
+
                     <InputText
                         name='destino'
                         placeholder='Tipo da Despesa'
@@ -100,17 +111,6 @@ export default function DespesasForm() {
                         checkmark={true}
                         highlightOnSelect={false}
                         value={selectedModoPag}
-                        className="w-full"
-                        required={true}
-                        onChange={valueInput}
-                    />
-                    <br /><br />
-
-                    <InputMask
-                        name="data_pag"
-                        placeholder="Data da Compra"
-                        mask="99/99/9999"
-                        slotChar="dd/mm/aaaa"
                         className="w-full"
                         required={true}
                         onChange={valueInput}
