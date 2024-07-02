@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import api from "../../services/api";
 
 import { Button } from 'primereact/button';
@@ -6,6 +6,7 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { useNavigate } from "react-router-dom";
 import { Image } from "primereact/image";
+import { Toast } from "primereact/toast";
 
 import logo from '../../assets/logo.png'
 import "./style.css";
@@ -17,6 +18,16 @@ export default function LoginForm() {
         email: '',
         senha: ''
     })
+
+    const toast:any = useRef(null);
+
+    const show = () => {
+        toast.current.show({ 
+            severity: 'error', 
+            summary: 'Erro ao realizar o login!', 
+            detail: 'Tente novamente.' 
+        });
+    };
 
     const valueInput = (e: any) => {
         setData({
@@ -46,6 +57,7 @@ export default function LoginForm() {
                 navigate('/dashboard');
             }).catch((err) => {
                 console.error("Ocorreu um erro: " + err);
+                show();
             });
     }
 
@@ -84,6 +96,7 @@ export default function LoginForm() {
 
                 <p className="text-sm">Não possui cadastro? <a href="/cadastro">Cadastre-se</a> agora!</p>
             </form>
+            <Toast ref={toast} />
         </div>
     )
 }

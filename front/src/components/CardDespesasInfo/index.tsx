@@ -106,6 +106,7 @@ export default function CardDespesasInfo(data: any) {
                         itemTemplate={itemTemplate}
                         rows={5}
                         inline
+                        emptyMessage={"Nenhuma despesa registrada."}
                         scrollHeight="200px"
                         className="pl-0"
                     />

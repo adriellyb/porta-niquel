@@ -31,11 +31,11 @@ export default function RegisterForm() {
 
     const toast:any = useRef(null);
 
-    const show = () => {
+    const show = (severity:any, summary:any, detail:any) => {
         toast.current.show({ 
-            severity: 'success', 
-            summary: 'Cadastro realizado com sucesso!', 
-            detail: 'Realize o login para acessar a sua carteira.' 
+            severity: severity, 
+            summary: summary, 
+            detail: detail 
         });
     };
 
@@ -50,7 +50,11 @@ export default function RegisterForm() {
             .post('/user', data)
             .then((res) => {
                 console.log("Cadastro realizado.");
-                show();
+                show(
+                    'success',
+                    'Cadastro realizado com sucesso!',
+                    'Realize o login para acessar a sua carteira.'
+                );
                 setData({
                     nome: '',
                     telefone: '',
@@ -60,6 +64,11 @@ export default function RegisterForm() {
                 });
             }).catch((err) => {
                 console.error("Ocorreu um erro: " + err);
+                show(
+                    'error',
+                    'Erro ao realizar o cadastro!',
+                    'Tente novamente'
+                );
             });
     }
 
