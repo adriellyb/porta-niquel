@@ -15,7 +15,7 @@
 Tenha uma carteira digital de maneira fácil e prática!
 
 <p align="center">
-  <img src="https://github.com/adriellyb/sendMessage/blob/main/front/src/assets/print.png" />
+  <img src="https://github.com/adriellyb/porta-niquel/blob/main/front/src/assets/print.png" />
 </p>
 
 Esta aplicação tem uma interface dinâmica na qual você pode consultar e adicionar todos os seus saldos e despesas para ter um melhor controle de seus gastos. Aqui você pode:
